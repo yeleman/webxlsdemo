@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Envoyer un fichier Excel pour un CSCOM.</h2>
+<form action="{% url add %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<label for="fichier"><input type="file" name="fichier" id="fichier" />
+<input type="submit" value="Envoyer" />
+</form>
+
+{% if answer %}
+<p>Votre formulaire a été <strong>{{ verbose_status }}</strong>.</p>
+{% if instance.id %}
+<p>Vous pouvez consulter ses données: <a href="{% url view instance.id %}">{{ instance.display_name }}</a>.</p>
+{% endif %}
+
+{% if errors %}
+<ul>
+{% for error in errors %}
+<li>{{ error }}</li>
+{% endfor %}
+</ul>
+{% endif %}
+{% endif %}
+
+{% if answer %}
+
+<table>
+{% for key, data in data.items %}
+<tr><th>{{ key }}</th><td>{{ data }}</td></tr>
+{% endfor %}
+</table>
+
+{% endif %}
+
+{% endblock %}

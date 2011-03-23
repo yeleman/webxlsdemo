@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Identifiez vous pour accèder au serveur.</h2>
+<form action="{% url login %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+<p><label for="username">Identifiant:</label>
+<input type="text" name="username" id="username" /></p>
+<p><label for="password">Mot de passe:</label>
+<input type="text" name="password" id="password" /></p>
+<input type="submit" value="Envoyer" />
+<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+
+{% endblock %}

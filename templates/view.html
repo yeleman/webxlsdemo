@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Rapport {{ report.display_name }}</h2>
+
+<dl>
+    <dt>Région: </dt>
+    <dd>{{ report.region }}</dd>
+ 
+    <dt>District: </dt>
+    <dd>{{ report.district }}</dd>
+ 
+    <dt>Établissement: </dt>
+    <dd>{{ report.health_center }}</dd>
+ 
+    <dt>Envoyé le :</dt>
+    <dd>{{ report.upload_date }} par {{ report.reporter.get_full_name }}</dd>
+</dl>
+
+<table>
+<tr><th rowspan="2">Classification</th><th colspan="3">Consultation</th></tr>
+<tr><th>- de 5 ans</th><th>5 ans et plus</th><th>Femmes enceintes</th></tr>
+<tr><td>Total consultation, toutes causes confondues</td><td>{{ report.total_consult_u5 }}</td><td>{{ report.total_consult_5p }}</td><td>{{ report.total_consult_fe }}</td></tr>
+<tr><td>Nbre de Cas de paludisme (Tous suspectés) </td><td>{{ report.total_malaria_u5 }}</td><td>{{ total_malaria_5p }}</td><td class="nodata"></td></tr>
+<tr><td>Nbre de Cas de paludisme Simple</td><td>{{ report.total_malaria_simple_u5 }}</td><td>{{ total_malaria_simple_5p }}</td><td class="nodata"></td></tr>
+<tr><td>Nbre de Cas de paludisme Grave</td><td>{{ report.total_malaria_severe_u5 }}</td><td>{{ report.total_malaria_severe_5p }}</td><td>{{ report.total_malaria_severe_fe }}</td></tr>
+<tr><td>Cas de paludisme testés (GE et/ou TDR)</td><td>{{ report.total_malaria_tested_u5 }}</td><td>{{ report.total_malaria_tested_5p }}</td><td>{{ report.total_malaria_tested_fe }}</td>
+<tr><td>Cas de paludisme confirmés (GE et/ou TDR)</td><td>{{ report.total_malaria_confirmed_u5 }}</td><td>{{ report.total_malaria_confirmed_5p }}</td><td>{{ report.total_malaria_confirmed_fe }}</td></tr>
+<tr><td>Nbre de Cas traités avec CTA</td><td>{{ report.total_malaria_acttreated_u5 }}</td><td>{{ report.total_malaria_acttreated_5p }}</td><td class="nodata"></td></tr>
+</table>
+
+<hr />
+
+<table>
+<tr><th>Indicateur</th><th>Total</th></tr>
+<tr><td>Cas de paludisme confirmés</td><td>{{ report.total_confirmed }}</td></tr>
+<tr><td>Traitements CTA</td><td>{{ report.total_act }}</td></tr>
+</table>
+
+
+{% endblock %}

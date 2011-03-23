@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Soumissions reçues</h2>
+<ul>
+{% for report in reports %}
+<li><a href="{% url view report.id %}">{{ report.display_name }}</a></li>
+{% empty %}
+<li>Aucune soumission pour le moment...</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
