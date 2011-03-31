@@ -1,19 +1,18 @@
 #!/usr/bin/env python
 # encoding=utf-8
 
-from django.contrib.auth import authenticate, login
-from django.shortcuts import (render_to_response, HttpResponseRedirect, 
-                              HttpResponse)
-from django.contrib.auth.decorators import login_required
-
-from django.template import RequestContext
-
+import sys
 from datetime import datetime, date
 
-import sys
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import (render_to_response, HttpResponseRedirect, \
+                              HttpResponse)
+from django.template import RequestContext
 
 from models import *
 from utils import *
+
 
 def handle_uploaded_file(f):
     fname = '/tmp/form_%s.xls' % datetime.now().strftime('%s')
@@ -23,16 +22,21 @@ def handle_uploaded_file(f):
     destination.close()
     return fname
 
+
 @login_required
 def index(request):
 
     context = {}
     context.update({'user': request.user})
 
-    reports = MalariaReport.objects.all().order_by('-year', '-month', 'health_center')
+    reports = MalariaReport.objects.all()\
+                                   .order_by('-year', '-month', \
+                                             'health_center')
     context.update({'reports': reports})
 
-    return render_to_response('index.html', context, context_instance=RequestContext(request))
+    return render_to_response('index.html', context, \
+                              context_instance=RequestContext(request))
+
 
 @login_required
 def view(request, report_id):
@@ -46,7 +50,9 @@ def view(request, report_id):
         report = None
     context.update({'report': report})
 
-    return render_to_response('view.html', context, context_instance=RequestContext(request))
+    return render_to_response('view.html', context, \
+                              context_instance=RequestContext(request))
+
 
 @login_required
 def add(request):
@@ -66,6 +72,9 @@ def add(request):
             print errors
             print instance
 
-            context.update({'answer': True, 'status': status, 'verbose_status': verbose_status(status), 'instance': instance, 'errors': errors})
+            context.update({'answer': True, 'status': status, \
+                            'verbose_status': verbose_status(status), \
+                            'instance': instance, 'errors': errors})
 
-    return render_to_response('add.html', context, context_instance=RequestContext(request))
+    return render_to_response('add.html', context, \
+                              context_instance=RequestContext(request))

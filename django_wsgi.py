@@ -16,4 +16,4 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 application = django.core.handlers.wsgi.WSGIHandler()
 
 # Mount the application to the url
-applications = {'/':'application', }
+applications = {'/': 'application', }
