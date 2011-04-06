@@ -105,3 +105,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'web',
 )
+
+try:
+    import local_settings.py
+except ImportError:
+    pass
